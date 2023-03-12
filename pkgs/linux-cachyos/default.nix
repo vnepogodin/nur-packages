@@ -10,8 +10,8 @@
 # https://github.com/NixOS/nixpkgs/blob/nixos-unstable/pkgs/os-specific/linux/kernel/linux-xanmod.nix
 let
   _major = "6";
-  _minor = "1";
-  _rc = "7";
+  _minor = "2";
+  _rc = "5";
 
   major = "${_major}.${_minor}";
   minor = _rc;
@@ -21,14 +21,14 @@ let
   patches-src = fetchFromGitHub {
     owner = "CachyOS";
     repo = "kernel-patches";
-    rev = "8544d51e0557c59f438453ce1a4ac22764d244b2";
+    rev = "af6894a39acb63230f8ad18b7cbb5707ec4b25e0";
     sha256 = "093509fmlir6q1pw7di4pl2fizswgfyx8rz85kb5s8nj86jvcvqc";
   };
 
   config-src = fetchFromGitHub {
     owner = "CachyOS";
     repo = "linux-cachyos";
-    rev = "8d695c6ad213f7f5b9cf35bdcf7031084c113a22";
+    rev = "a93b12e70f859180602d0bbec0747601d0cf58fe";
     sha256 = "0x4a48m4fki5g728laqd7ah8dm135dpxzc1mkr8sapbizabi6wvj";
   };
 
@@ -90,7 +90,8 @@ buildLinux {
     [
       "${patches-src}/${major}/all/0001-cachyos-base-all.patch"
       "${patches-src}/${major}/misc/0001-Add-latency-priority-for-CFS-class.patch"
-      "${patches-src}/${major}/sched/0001-bore-cachy.patch"
+      "${patches-src}/${major}/sched/0001-EEVDF.patch"
+      "${patches-src}/${major}/sched/0001-bore-eevdf.patch"
     ]);
 
   extraMeta.broken = !stdenv.hostPlatform.isx86_64;
